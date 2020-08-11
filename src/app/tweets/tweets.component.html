@@ -1,0 +1,61 @@
+<div class="alignMiddle">
+    <input #searchbarWord (change)="onChange(searchbarWord.value)" class="searchBar" placeholder="Word search">
+    <div>
+        <input #searchbarLikes (change)="onLikesChange(searchbarLikes.value)" class="underSearchBar" placeholder="Likes amount search">
+        <select #menuMonth (change)=onMenuChange(menuMonth.value) class="underSearchBar">
+            <option value="12">--Month--</option>
+            <option value="0">January</option>
+            <option value="1">Febuary</option>
+            <option value="2">March</option>
+            <option value="3">April</option>
+            <option value="4">May</option>
+            <option value="5">June</option>
+            <option value="6">July</option>
+            <option value="7">August</option>
+            <option value="8">September</option>
+            <option value="9">October</option>
+            <option value="10">November</option>
+            <option value="11">December</option>
+        </select>
+    </div>
+</div>
+
+<div *ngFor="let tweet of twat">
+    <div *ngIf="searchResult == null || searchResult.length == 0; else showSearched">
+        <div *ngIf="menuResult == null || menuResult == 0; else showSearched">
+            <div *ngIf="likesResult == null || likesResult == ''; else showSearched" class="tweetBackground">
+                <div>
+                    <h1 class="tweetTitle textBox">Trump</h1>
+                    <img src="../../assets/Verified.png" width="80px" height="80px" class="tweetImg">
+                </div>
+                <div class="textBox">
+                    <p class="tweetMessage">{{tweet.text}}</p>
+                </div>
+                    <p class="textBox tweetDate">{{tweet.date}}</p>
+                <div class="tweetLike">
+                    <p>
+                        {{tweet.likes}} likes
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #showSearched>
+        <div *ngIf="tweet.text.includes(searchResult) || tweet.likes > likesResult || menuResult == tweet.date.getMonth()" class="tweetBackground">
+            <div>
+                <h1 class="tweetTitle textBox">Trump</h1>
+                <img src="../../assets/Verified.png" width="80px" height="80px" class="tweetImg">
+            </div>
+            <div class="textBox">
+                <p class="tweetMessage">{{tweet.text}}</p>
+            </div>
+                <p class="textBox tweetDate">{{tweet.date}}</p>
+            <div class="tweetLike">
+                <p>
+                    {{tweet.likes}} likes
+                </p>
+            </div>
+        </div>
+    </ng-template>
+</div>
